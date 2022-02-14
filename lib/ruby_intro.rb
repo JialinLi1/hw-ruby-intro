@@ -11,7 +11,7 @@ def sum arr
 end
 
 def max_2_sum arr
-  a,b = 0,0
+  a,b = -Float::INFINITY,-Float::INFINITY
   for i in arr do 
       if i>a 
           if i>b 
@@ -23,10 +23,12 @@ def max_2_sum arr
           next
       end
   end
+  if a==-Float::INFINITY; a=0; end; if b==-Float::INFINITY; b=0; end;
   a+b
 end
 
 def sum_to_n? arr,n
+  if arr.length <= 1; return false; end
   for i in arr do
       if arr.include?(n-i)
           return true
@@ -56,8 +58,8 @@ class BookInStock
   attr_accessor :isbn, :price 
 
   def initialize isbn, price
-      # doesn't care what's actually in isbn, as long as non-empty, starts with number and includes number/hypens
-      raise ArgumentError if isbn == "" or price <=0 or not isbn =~ /^\d[\d\-]*$/
+      # doesn't care what's actually in isbn, as long as it's non-empty
+      raise ArgumentError if isbn == "" or price <=0
       @isbn, @price = isbn, price 
   end
 
